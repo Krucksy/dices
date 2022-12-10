@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lancé de 3 dés</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Passion+One&display=swap" rel="stylesheet">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <main>
+        <section>
+            <h1>Visualisation: lancé de 3 dés</h1>
+            <div id="selector">
+                <div>
+                    <input type="radio" id="impair" name="sortDice" onclick="updateCells('impair')">
+                    <label for="impair">Un des 3 dés au moins présente un chiffre impair</label>
+                </div>
+                <div>
+                    <input type="radio" id="pairDiff" name="sortDice" onclick="updateCells('pairDiff')">
+                    <label for="pairDiff">Présentent trois chiffres pairs différents</label>
+                </div>
+                <div>
+                    <input type="radio" id="pairSame" name="sortDice" onclick="updateCells('pairSame')">
+                    <label for="pairSame">Présentent trois même chiffres pairs</label>
+                </div>
+                <div>
+                    <input type="radio" id="sum" name="sortDice" onclick="enableFieldInput()">
+                    <label for="sum">Somme des trois dés vaut:</label>
+                    <input type="number" id="sumValue" min="3" max="18" onchange="updateCells('sum')" disabled>
+                </div>
+            </div>
+            <p>Nombre de tirage respectant la condition sélectionnée: <span id="nbTot">0</span>/216</p>
+            <div id="app"></div>
+            <p class="footer">Fait par <a href="https://www.simon-plumey.ch/" target="_blank">simon-plumey.ch</a> dans le cadre de la <a href="https://www.he-arc.ch/" target="_blank">he-arc</a>.</p>
+        </section>
+    </main>
+    <svg id="dice1" width="40" height="40" viewBox="0 0 76.5 76.5" xmlns="http://www.w3.org/2000/svg">
+        <g transform="matrix(.5 0 0 .5 -293.25 -119.43)">
+            <rect style="color:#000;fill:#fff;fill-rule:evenodd;stroke:#000;stroke-width:3" rx="50" ry="50" height="150"
+                width="150" y="240.36" x="588" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(337.5 87.5)" cx="325" cy="227.362" r="12.5" />
+        </g>
+    </svg>
+    <svg id="dice2" width="40" height="40" viewBox="0 0 76.5 76.5" xmlns="http://www.w3.org/2000/svg">
+        <g transform="matrix(.5 0 0 .5 -305.75 -19.431)">
+            <rect style="color:#000;fill:#fff;fill-rule:evenodd;stroke:#000;stroke-width:3" rx="50" ry="50" height="150"
+                width="150" y="40.362" x="613" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(326.5 -148.5)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(398.5 -76.5)" cx="325" cy="227.362" r="12.5" />
+        </g>
+    </svg>
+    <svg id="dice3" width="40" height="40" viewBox="0 0 76.5 76.5" xmlns="http://www.w3.org/2000/svg">
+        <g transform="matrix(.5 0 0 .5 -205.75 -.681)">
+            <rect style="color:#000;fill:#fff;fill-rule:evenodd;stroke:#000;stroke-width:3" rx="50" ry="50" height="150"
+                width="150" y="2.862" x="413" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(126.5 -186)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(198.5 -114)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(162.5 -150)" cx="325" cy="227.362" r="12.5" />
+        </g>
+    </svg>
+    <svg id="dice4" width="40" height="40" viewBox="0 0 76.5 76.5" xmlns="http://www.w3.org/2000/svg">
+        <g transform="matrix(.5 0 0 .5 -212 -131.93)">
+            <rect style="color:#000;fill:#fff;fill-rule:evenodd;stroke:#000;stroke-width:3" rx="50" ry="50" height="150"
+                width="150" y="265.36" x="425.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(139 76.5)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(139 148.5)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(211 76.5)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(211 148.5)" cx="325" cy="227.362" r="12.5" />
+        </g>
+    </svg>
+    <svg id="dice5" width="40" height="40" viewBox="0 0 76.5 76.5" xmlns="http://www.w3.org/2000/svg">
+        <g transform="matrix(.5 0 0 .5 -105.75 -138.18)">
+            <rect style="color:#000;fill:#fff;fill-rule:evenodd;stroke:#000;stroke-width:3" rx="50" ry="50" height="150"
+                width="150" y="277.86" x="213" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(-73.5 89)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(-73.5 161)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(-1.5 89)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(-1.5 161)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(-37.5 125)" cx="325" cy="227.362" r="12.5" />
+        </g>
+    </svg>
+    <svg id="dice6" width="40" height="40" viewBox="0 0 76.5 76.5" xmlns="http://www.w3.org/2000/svg">
+        <g transform="matrix(.5 0 0 .5 -12 -144.43)">
+            <rect style="color:#000;fill:#fff;fill-rule:evenodd;stroke:#000;stroke-width:3" rx="50" ry="50" height="150"
+                width="150" y="290.36" x="25.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(-261 101.5)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(-261 173.5)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(-261 137.5)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(-189 101.5)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(-189 173.5)" cx="325" cy="227.362" r="12.5" />
+            <circle style="color:#000;fill:#000;fill-rule:evenodd;stroke:#000;stroke-width:3"
+                transform="translate(-189 137.5)" cx="325" cy="227.362" r="12.5" />
+        </g>
+    </svg>
+    <script src="index.js"></script>
+</body>
+
+</html>
