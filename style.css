@@ -88,4 +88,12 @@ label, p, input
     {   
         column-gap: 5px;
     }
+    .footer
+    {
+        flex-direction: column;
+    }
+    .footer p
+    {
+        margin-top: 0;
+    }
 }
